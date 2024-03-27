@@ -26,6 +26,10 @@ const userSchema = new Schema(
       type: String,
       default: "USER",
     },
+    phone: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

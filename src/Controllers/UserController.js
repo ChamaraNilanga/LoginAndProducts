@@ -3,14 +3,15 @@ const userService = require("../Services/UserService");
 const userValidate = require("../validator/UserValidator");
 module.exports = {
   createUser: async (req, res) => {
-    const { email, password, name } = req.body;
+    const { email, password, name,phone } = req.body;
     try {
         const validemail =await userValidate.ValidateEmail(email);
         const validpassword =await userValidate.ValidateString(password);
         const validname =await userValidate.ValidateString(name);
+        const validPhone =await userValidate.ValidatePhone(phone);
         console.log(validemail);
         console.log(validpassword);
-        if (validemail.result && validpassword.result && validname.result)
+        if (validemail.result && validpassword.result && validname.result && validPhone.result)
         {
             const result = await userService.createUser(req);
             if (!result.success) {

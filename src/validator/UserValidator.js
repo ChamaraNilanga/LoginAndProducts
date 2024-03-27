@@ -23,3 +23,16 @@ const validator = require("validator");
      throw error;
    }
  };
+
+ exports.ValidatePhone = async (phone) => {
+    try {
+      var result = validator.isMobilePhone(phone);
+      if (result) {
+        return {result : result, message : "Phone is valid"};
+      }else{
+        return {result : result, message : "Phone is not valid"};
+      }
+    } catch (error) {
+      throw error;
+    }
+ };

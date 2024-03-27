@@ -26,7 +26,7 @@ module.exports = {
   },
 
   createUser: async (req) => {
-    const { email,password,name,role } = req.body;
+    const { email,password,name,role,phone } = req.body;
     console.log(req.body);
     try {
       const existUser = await User.findOne({ email });
@@ -36,7 +36,8 @@ module.exports = {
             name: name,
             email: email,
             password: hashedPassword,
-            role:role!=null && role=="ADMIN" ? role : "USER"
+            role:role!=null && role=="ADMIN" ? role : "USER",
+            phone:phone
         });
         const data = await user.save();
         return { data: data, statusCode: 201, success: true };
