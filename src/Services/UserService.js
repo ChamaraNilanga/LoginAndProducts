@@ -25,15 +25,17 @@ module.exports = {
   },
 
   createUser: async (req) => {
-    const { email,password } = req.body;
+    const { email,password,name,role } = req.body;
     console.log(req.body);
     try {
       const existUser = await User.findOne({ email });
       if (existUser === null) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = new User({
+            name: name,
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            role:role!=null && role=="ADMIN" ? role : "USER"
         });
         const data = await user.save();
         return { data: data, statusCode: 201, success: true };

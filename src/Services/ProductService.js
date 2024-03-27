@@ -2,6 +2,21 @@ const Product = require("../Models/ProductModel");
 const imageUploader = require("../Utils/ImageUploader");
 
 module.exports = {
+  getProductByID: async (req) => {
+    try {
+      const id = req.params.id;
+      const products = await Product.findById(id);
+      if (products) {
+        return { data: products, statusCode: 200, success: true , message: "Products get successfully"};
+      } else {
+        return { success: false, statusCode: 400, message: "Products not found" };
+      }
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+
   getProducts: async (req) => {
     try {
       const products = await Product.find();
@@ -45,6 +60,7 @@ module.exports = {
   },
   updateProduct: async (req) => {
     const { name, price, description } = req.body;
+    const id = req.params.id;
     const image = await imageUploader.imageUploader(req);
     try {
         let updateQuery = {};
@@ -61,7 +77,7 @@ module.exports = {
             updateQuery.image = image;
         }
       const product = await Product.findOneAndUpdate(
-        { _id: req.body._id },
+        { _id: id },
         updateQuery,
         { new: true }
       );

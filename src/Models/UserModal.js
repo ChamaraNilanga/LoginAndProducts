@@ -3,6 +3,12 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+      max: 32,
+    },
     email: {
       type: String,
       trim: true,
@@ -16,9 +22,13 @@ const userSchema = new Schema(
       min: 6,
       max: 64,
     },
+    role : {
+      type: String,
+      default: "USER",
+    },
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("user", userSchema);
+const User = mongoose.model("users", userSchema);
 module.exports = User;
