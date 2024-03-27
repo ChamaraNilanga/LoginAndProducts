@@ -45,6 +45,7 @@ module.exports = {
       if (result.success === true) {
         res.status(200).send({ 
             token: result.token,
+            userId: result.userId,
             message: result.message,
         });
       }

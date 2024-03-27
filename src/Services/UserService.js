@@ -74,8 +74,8 @@ module.exports = {
       }
       const token = jwtService.createToken(user._id,user.role);
       return {
-        token: token,
         userId: user._id,
+        token: token,
         statusCode: 200,
         success: true,
         message: "Login Success!",
