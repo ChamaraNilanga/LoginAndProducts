@@ -5,6 +5,7 @@ const upload = multer({ storage });
 const cloudinary = require("../dbConfig/cloudinary-config");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const jwtService = require("../Utils/JWTValidate");
 // const bcrypt = require("bcrypt");
 
 module.exports = {
@@ -70,9 +71,7 @@ module.exports = {
           message: "Authentication failed",
         };
       }
-      const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-        expiresIn: "1h",
-      });
+      const token = jwtService.createToken(user._id,user.role);
       return {
         token: token,
         statusCode: 200,
